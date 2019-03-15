@@ -4,6 +4,7 @@
 	<link rel="icon" type="image/png" href="img/logo-dark.png">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<title>Systems Login</title>
 	<?php 
 		include("config/config.php");
@@ -55,7 +56,7 @@
             <div class="auth-box">
                 <div id="loginform">
 
-<img src="img/logo-dark.png">
+<img src="img/logo-dark.png"a>
 <h1>Login Form</h1>
 
        <div class="row">
