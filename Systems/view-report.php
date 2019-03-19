@@ -2,15 +2,31 @@
 
 include('config/header.php');
 ?>
+<style>
 
-<?php 
 
+  body {
+  background-color: #f1f1f1;
+}
+  
 
-?>
+  table{
+    left:50px;
+  }
+
+</style>
+
+<br/>
+<br/>
 <h3 class="h3 text-center" >Audit Reports Details</h3>
 
+<div class="container">
+  <div class="row">
+    <div class="col-8"></div>
+    <div class="col-12">
 
-<table border=1 class="table text-center table-hover">
+
+<table  class="table text-center table-hover">
   <thead>
   	 	<?php 
   	$id=$_GET['id'];
@@ -31,15 +47,16 @@ if($rows==1){
     	$qalead=$row['qaLead'];
     	$auditor=$row['auditor'];
     	$nc=$row['NC'];
+      $remarks=$row['remarks'];
 ?>
     <tr>
-      <th scope="col" colspan="8" style="text-align:left">General Information
+      <th scope="col" colspan="8" style="text-align:center;">General Information
       <tr>
       <th scope="col" style="text-align:left">Location</th>
       <td style="text-align:left"><?php echo $location;?></td>
       <th scope="col" style="text-align:left">Project Manager</th>
       <td style="text-align:left"><?php echo $projectManager;?></td>
-      <tr>
+    <tr>
       <th scope="col" style="text-align:left">Competency</th>
       <td style="text-align:left"><?php echo $competency;?></td>
       <th scope="col" style="text-align:left">Development Lead</th>
@@ -72,6 +89,12 @@ if($rows==1){
       </th>
      
     </tr>
+    <tr>
+      <th scope="col" colspan="4" style="text-align:left">Remarks</th>   
+    </tr>
+    <tr>
+      <td colspan="4" style="text-align:left"><?php echo $remarks;?></td>      
+    </tr>
   </thead>
   <tbody>
 
@@ -84,7 +107,10 @@ if($rows==1){
 
 
 </table>
-
+</div>
+</div>
+</div>
+<div class="col-8"></div>
 <br>
  <br>
  <br>

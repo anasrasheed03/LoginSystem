@@ -37,7 +37,7 @@
 						$_SESSION['email']=$email;
 						$_SESSION['designation']=$designation;
 						$_SESSION['id']=$id;
-						header("location:index.php");
+						header("location:index");
 						
 					}
 
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12 text-center">
-                                        Don't have an account? <a href="register.php" class="text-info"><b>Sign Up</b></a>
+                                        Don't have an account? <a href="register" class="text-info"><b>Sign Up</b></a>
                                     </div>
                                 </div>
                             </form>

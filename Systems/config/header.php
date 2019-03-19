@@ -7,7 +7,7 @@ $lname=$_SESSION['lname'];
 $email=$_SESSION['email'];
 $designation=$_SESSION['designation'];
 if(!isset($_SESSION["username"])){
-header("Location: login.php");
+header("Location: login");
 exit(); }
 
 ?>
@@ -56,8 +56,8 @@ exit(); }
       <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#dee2e6">Audit</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="newAduit.php">Add New</a>
-            <a class="dropdown-item" href="view-audit.php">View Reports</a>
+            <a class="dropdown-item" href="newAduit">Add New</a>
+            
 
           </div>
       </li>
@@ -71,6 +71,21 @@ exit(); }
       <?php 
       }
       ?>
+<?php 
+if($designation==='Admin'){?>
+
+<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:#dee2e6">Reports</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="view-audit">View Reports</a>
+            <a class="dropdown-item" href="view-roles">View Roles</a>
+            <a class="dropdown-item" href="view-stages">View Stages</a>
+            <a class="dropdown-item" href="view-questions">View Questions</a>
+
+          </div>
+      </li>
+<?php }
+?>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="color:#dee2e6;" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           About Us
@@ -90,8 +105,8 @@ exit(); }
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item"><?php echo $username; ?></a>
-            <a class="dropdown-item" href="profile.php">Profile </a>
-            <a class="dropdown-item" href="logout.php">Logout</a>
+            <a class="dropdown-item" href="profile">Profile </a>
+            <a class="dropdown-item" href="logout">Logout</a>
             </div>
     </li>
     </ul>
