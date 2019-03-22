@@ -1,11 +1,42 @@
 <?php 
 include('config/header.php');
 ?>
+<?php 
+  if(isset($_POST['update'])){
+    $stage_name=$_POST['stage_name'];
+    $sid=$_POST['sid'];
+    $sel="update stages set stage_name='$stage_name' where stage_id=$sid";
+    $end=mysqli_query($connect, $sel);
+    if($end==true){
+      header('location:view-stages');
+    }
+  }
+
+?>
+
 <style type="text/css">
   body {
   background-color: #f1f1f1;
 }
 
+
+  #rid{
+    border: none;
+    border-color: transparent;
+    background-color: #f1f1f1;
+    outline: none !important;
+  }
+#stage{
+    border: none;
+    border-color: transparent;
+    background-color: #f1f1f1;
+    outline: none !important;
+}
+input:focus{
+
+    color: #ff0000;
+    background-color: #fff;
+}
 </style>
 
 
@@ -21,8 +52,9 @@ include('config/header.php');
 <table class="table text-center table-hover">
   <thead>
     <tr>
-      <th scope="col">Sr#</th>
+      
       <th scope="col">Stage Names</th>
+      <th scope="col">Roles</th>
       <th scope="col">Update</th>
      
     </tr>
@@ -40,9 +72,17 @@ if($rows>1){
        
 ?>
     <tr>      
-      <td><?php echo $stage_name;?></td>
+
+      <form method="Post">
+      
+      <td><input type="text" name="stage_name" id="stage" value='<?php echo $stage_name;?>' ></td>
       <td><?php echo $role_name;?></td>
-      <td><button>Update</button></td>
+      <td><input type="submit" name="update" value="Update Roles"></td>
+      <td><input type="text" class="text-center" hidden name="sid" id="sid" readonly value="<?php echo $id;?>"></td>
+         </form>
+      
+      
+      
          
       </tr>
   <?php	}

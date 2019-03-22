@@ -108,68 +108,50 @@ if($rows==1){
 
 </table>
 
+<?php 
+      $query="SELECT project_total from check_list where report_id=$id";
+      $get=mysqli_query($connect, $query);
+      if($get==true){
+        $fetch=mysqli_fetch_assoc($get);
+        $project_total=$fetch['project_total'];
+      }
+?>
+
+<h3 class="text-center">Project Process Compliance %  : <?php echo $project_total;?></h3>
+<br/>
+
 <table class="table text-center table-hover">
   <tr>
-    <?php 
-$query1="SELECT check_list.checklist_id, check_list.Evidence, check_list.Verified,check_list.Total_Points,check_list.Points_Attained,check_list.Exception_Deviation,check_list.NC, check_list.Observation,check_list.report_id, check_list.question,check_list.project_total from audit INNER JOIN check_list where check_list.report_id = $id && check_list.report_id = audit.id";
-
-  $sql1=mysqli_query($connect, $query1);
-  $rows=mysqli_num_rows($sql1);
-if($rows>0){
-    $test=mysqli_fetch_assoc($sql1);
-      $project_total=$test['project_total'];
-    
-}
-
-    ?>
-<h3 class="text-center">Project Total Score: <?php echo $project_total;?></h3>
-    <th scope="col" colspan="8" style="text-align:center;">INTERNAL AUDIT CHECK LIST FOR PROJECT MANAGEMENT
-      </th>
-      <td><a href="report-summary?id=<?php echo $id; ?>" ><button align="left">View Summary</button></a></td>
+    <th scope="col" colspan="8" style="text-align:center;">Phase wise compliance</th>
   </tr>
   <tr>
     <th class="text-left">Sr#</th>
     <th class="text-left">Query</th>
-    <th class="text-left">Possible Evidence</th>
-    <th class="text-left">Verified</th>
     <th class="text-left">Total Points</th>
     <th class="text-left">Points Attained</th>
-    <th class="text-left">Exception/ Deviation</th>
-    <th class="text-left">NC #</th>
-    <th class="text-left">Observation and Remarks</th>
   </tr>
 <?php 
   
-  
+  $query1="select stages.stage_name, sum(check_list.Total_Points), SUM(check_list.Points_Attained) from stages INNER JOIN check_list where stages.stage_id = check_list.stage_id GROUP By stages.stage_name ORDER BY stages.stage_id";
+
+  $sql1=mysqli_query($connect, $query1);
+  $rows1=mysqli_num_rows($sql1);
   $sr=0;
   if($rows>0){
   while($row1=mysqli_fetch_assoc($sql1)){
-    $question=$row1['question'];
-    $Verified=$row1['Verified'];
-    $Total_Points=$row1['Total_Points'];
-    $Points_Attained=$row1['Points_Attained'];
-    $Evidence=$row1['Evidence'];
-    $Exception_Deviation=$row1['Exception_Deviation'];
-    $Observation=$row1['Observation'];
-    $nc=$row1['NC'];    
+    $stage_name=$row1['stage_name'];
+    $Total_Points=$row1['sum(check_list.Total_Points)'];
+    $Points_Attained=$row1['SUM(check_list.Points_Attained)'];
+    
     $sr++;
 
 
 ?>
   <tr>
     <td style="text-align:left"><?php echo $sr?></td>
-    <td style="text-align:left"><?php echo $question;?></td>
-    <td style="text-align:left"><?php echo $Evidence;?></td>
-    <td style="text-align:left"><?php echo $Verified;?></td>
+    <td style="text-align:left"><?php echo $stage_name;?></td>
     <td style="text-align:left"><?php echo $Total_Points;?></td>
     <td style="text-align:left"><?php echo $Points_Attained;?></td>
-    <td style="text-align:left"><?php echo $Exception_Deviation;?></td>
-    <td style="text-align:left"><?php echo $nc;?></td>
-    <td style="text-align:left"><?php echo $Observation;?></td>
-    
-    
-
-
   </tr>
 
   <?php 
@@ -178,12 +160,100 @@ if($rows>0){
   ?>
 
 </table>
+<br/>
+<br/>
 
 
+
 </div>
 </div>
+<div class="row">
+  <div class="col-8">
+  <table class="table text-center table-hover">
+    <?php 
+    $query2="SELECT * FROM `summary` WHERE `report_id` = $id";
+    $sum=mysqli_query($connect, $query2);
+    $summary=mysqli_num_rows($sum);
+    $se=0;
+    if($summary>0){
+      while($sumfetch=mysqli_fetch_assoc($sum)){
+        $NonConformanceSummary=$sumfetch['NonConformanceSummary'];
+        $type=$sumfetch['type'];
+        $owner=$sumfetch['owner'];
+        $phase=$sumfetch['phase'];
+        
+        $se++;
+     
+    ?>
+  <tr>
+    <th class="text-left">NC# <?php echo $se; ?></th>
+  </tr>
+  <tr>
+    <th class="text-left">Non Conformance Summary</th>
+    <td class="text-left"><?php echo $NonConformanceSummary; ?></td>
+  </tr>
+  <tr>
+    <th class="text-left">Type</th>
+    <td class="text-left"><?php echo $type; ?></td>
+  </tr>
+  <tr>
+    <th class="text-left">Phase</th>
+    <td class="text-left"><?php echo $phase; ?></td>
+  </tr>
+  <tr>
+    <th class="text-left">Owner</th>
+    <td class="text-left"><?php echo $owner; ?></td>
+  </tr>
+
+<?php 
+ }
+    }
+?>
+<br/>
+</table>
+
 </div>
-<div class="col-8"></div>
+</div>
+<br/>
+<div class="row">
+  <div class="col-8">
+    
+    <table class="table text-center table-hover">
+    <?php 
+    $query2="SELECT * FROM `summary` WHERE `report_id` = $id";
+    $sum=mysqli_query($connect, $query2);
+    $summary=mysqli_num_rows($sum);
+    $se=0;
+    if($summary>0){
+      while($sumfetch=mysqli_fetch_assoc($sum)){
+        $Observations=$sumfetch['Observations'];
+        
+        $se++;
+     
+    ?>
+  
+  <tr>
+    <th class="text-left">Sr #</th>
+    <td class="text-left"><?php echo $se; ?></td>
+  </tr>
+  <tr>
+    <th class="text-left">Observations</th>
+    <td class="text-left"><?php echo $Observations; ?></td>
+  </tr>
+ 
+
+<?php 
+ }
+    }
+?>
+<br/>
+</table>
+  </div>
+</div>
+</div>
+
+  
+
 <br>
  <br>
  <br>
